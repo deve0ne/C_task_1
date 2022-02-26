@@ -40,7 +40,7 @@ double calculate(double num1, double num2, char operation) {
         case '/':
             if (num2 == 0)
                 throw invalid_argument("Division by zero exception");
-            
+
             return num1 / num2;
         default:
             return 0;
@@ -51,7 +51,6 @@ int main() {
     double num1 = inputNum("Enter first num:");
     double num2 = inputNum("Enter second num:");
     char operation = inputOperation();
-
 
     try {
         double result = calculate(num1, num2, operation);
