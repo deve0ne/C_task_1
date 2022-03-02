@@ -2,16 +2,31 @@
 
 using namespace std;
 
-double inputNum(const string &messageToUser) {
-    cout << messageToUser << endl;
-
+double readNum(const string &messageToUser) {
+    string userInput;
     double num;
-    cin >> num;
+    bool correctInput = false;
+
+    while (!correctInput) {
+        try {
+            cout << messageToUser << endl;
+
+            cin >> userInput;
+            cin.clear();
+            cin.ignore(10000,'\n');
+
+            num = stod(userInput);
+
+            correctInput = true;
+        } catch (invalid_argument &) {
+            cout << "You entered incorrect operation. Try again" << endl;
+        }
+    }
 
     return num;
 }
 
-char inputOperation() {
+char readOperation() {
     char operation = 0;
     string allowedOperators = "+ - * /";
     bool isOperationCorrect = false;
@@ -21,7 +36,7 @@ char inputOperation() {
         cin >> operation;
 
         if (allowedOperators.find(operation) == string::npos)
-            cout << "You entered incorrect operation. Try again\n" << endl;
+            cout << "You entered incorrect operation. Try again" << endl;
         else
             isOperationCorrect = true;
     }
@@ -48,13 +63,13 @@ double calculate(double num1, double num2, char operation) {
 }
 
 int main() {
-    double num1 = inputNum("Enter first num:");
-    double num2 = inputNum("Enter second num:");
-    char operation = inputOperation();
+    double num1 = readNum("Enter first num:");
+    double num2 = readNum("Enter second num:");
+    char operation = readOperation();
 
     try {
         double result = calculate(num1, num2, operation);
-        cout << num1 << " " << operation <<  " " << num2 << " = " << result << endl;
+        cout << num1 << " " << operation << " " << num2 << " = " << result << endl;
     } catch (invalid_argument &e) {
         cout << e.what() << endl;
     }
